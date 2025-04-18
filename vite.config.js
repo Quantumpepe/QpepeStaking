@@ -1,4 +1,5 @@
 export default {
-  base: '/QpepeStaking/',
+  server: {
+    port: 5173,
+  },
 };
-
