@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QPEPE Staking</title>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.7.4/dist/web3.min.js"></script>
+  <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
+  <style>
+    body {
+      background-color: #001a00;
+      font-family: 'Orbitron', sans-serif;
+      color: #00ffcc;
+      text-align: center;
+      padding: 30px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      border: 2px solid #00ffcc;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #00ffcc;
+      background-color: #000;
+    }
+    button {
+      background-color: #00ffcc;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    input {
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    .flex {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    h1 {
+      color: #00ffcc;
+      font-size: 28px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>QuantumPepe Staking</h1>
+    <button id="connectWallet">🔗 Connect with WalletConnect</button>
+    <p><strong>Wallet:</strong> <span id="walletAddress">Not connected</span></p>
+    <p><strong>Staked:</strong> <span id="staked">0</span> QPEPE</p>
+    <p><strong>Rewards:</strong> <span id="rewards">0</span> QPEPE</p>
+    <div class="flex">
+      <input type="number" id="stakeAmount" placeholder="Enter amount to stake" />
+      <button onclick="stakeTokens()">Stake</button>
+    </div>
+    <div class="flex">
+      <button onclick="unstakeTokens()">Unstake</button>
+      <button onclick="claimRewards()">Claim Rewards</button>
+    </div>
+  </div>
+
+  <script>
+    let provider;
+    let web3;
+    let contract;
+    let account;
+
+    const CONTRACT_ADDRESS = "0x..."; // TODO: Smart Contract Adresse eintragen
+    const CONTRACT_ABI = [
+      // TODO: ABI hier einfügen
+    ];
+
+    document.getElementById("connectWallet").onclick = async () => {
+      provider = new WalletConnectProvider.default({
+        rpc: {
+          137: "https://polygon-rpc.com",
+          1: "https://mainnet.infura.io/v3/YOUR_INFURA_ID"
+        },
+        chainId: 137
+      });
+      await provider.enable();
+      web3 = new Web3(provider);
+      const accounts = await web3.eth.getAccounts();
+      account = accounts[0];
+      document.getElementById("walletAddress").textContent = account;
+      contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+      updateBalances();
+    };
+
+    async function updateBalances() {
+      try {
+        const staked = await contract.methods.stakedAmounts(account).call();
+        const rewards = await contract.methods.calculateRewards(account).call();
+        document.getElementById("staked").textContent = web3.utils.fromWei(staked);
+        document.getElementById("rewards").textContent = web3.utils.fromWei(rewards);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function stakeTokens() {
+      const amount = document.getElementById("stakeAmount").value;
+      if (!amount) return alert("Please enter an amount.");
+      const weiAmount = web3.utils.toWei(amount);
+      try {
+        await contract.methods.stakeTokens(weiAmount).send({ from: account });
+        updateBalances();
+      } catch (e) {
+        alert("Stake failed");
+        console.error(e);
+      }
+    }
+
+    async function unstakeTokens() {
+      try {
+        await contract.methods.unstake().send({ from: account });
+        updateBalances();
+      } catch (e) {
+        alert("Unstake failed");
+        console.error(e);
+      }
+    }
+
+    async function claimRewards() {
+      try {
+        await contract.methods.claimRewards().send({ from: account });
+        updateBalances();
+      } catch (e) {
+        alert("Claim failed");
+        console.error(e);
+      }
+    }
+  </script>
+</body>
+</html>
