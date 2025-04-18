@@ -1,21 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>QuantumPepe Staking</title>
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QuantumPepe Staking</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="staking-card">
     <h1>QuantumPepe Staking</h1>
-    <button id="connectButton">Connect Wallet</button>
-    <select id="chainSelect">
-      <option value="1">Ethereum</option>
-      <option value="56">BNB Chain</option>
-      <option value="137" selected>Polygon</option>
-    </select>
-    <p><strong>Address:</strong> <span id="walletAddress">-</span></p>
-    <p><strong>Chain:</strong> <span id="walletChain">-</span></p>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+
+    <button id="connectButton">🔗 Connect with WalletConnect</button>
+
+    <div class="status">
+      <p><strong>Wallet:</strong> <span id="walletAddress">Not connected</span></p>
+      <p><strong>Staked:</strong> <span id="staked">0 QPEPE</span></p>
+      <p><strong>Rewards:</strong> <span id="rewards">0 QPEPE</span></p>
+    </div>
+
+    <div class="stake-controls">
+      <input type="number" id="amount" placeholder="Enter amount to stake" />
+      <button id="stakeButton">Stake</button>
+    </div>
+
+    <div class="stake-controls">
+      <button id="unstakeButton">Unstake</button>
+      <button id="claimButton">Claim Rewards</button>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
 </html>
 
