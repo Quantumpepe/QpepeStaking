@@ -2,25 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/qpepe.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QPEPE Staking</title>
   </head>
   <body>
     <div id="app">
       <h1>QuantumPepe Staking</h1>
       <button id="connectButton">Connect Wallet</button>
-
       <select id="chainSelect">
         <option value="1">Ethereum</option>
-        <option value="56">BNB Chain</option>
+        <option value="56">BNB</option>
         <option value="137" selected>Polygon</option>
       </select>
-
-      <p><strong>Wallet:</strong> <span id="walletAddress">Not connected</span></p>
+      <p><strong>Wallet:</strong> <span id="walletAddress">-</span></p>
       <p><strong>Chain:</strong> <span id="walletChain">-</span></p>
     </div>
-
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
