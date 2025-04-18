@@ -1,29 +1,48 @@
-
- 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>QuantumPepe Staking</title>
-    <link rel="stylesheet" href="/style.css" />
+    <title>QPEPE Staking</title>
+    <script type="module" src="/src/main.js"></script>
+    <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
-    <div class="staking-container">
+    <div class="app-container">
       <h1>QuantumPepe Staking</h1>
-      <button id="connectButton">🔗 Connect with WalletConnect</button>
+
+      <!-- Verbindung mit WalletConnect -->
+      <select id="chainSelect">
+        <option value="1">Ethereum</option>
+        <option value="137">Polygon</option>
+        <option value="56">Binance Smart Chain</option>
+      </select>
+
+      <button id="connectButton">Connect Wallet</button>
+
       <div class="wallet-info">
         <p><strong>Wallet:</strong> <span id="walletAddress">Not connected</span></p>
-        <p><strong>Staked:</strong> <span id="stakedAmount">0 QPEPE</span></p>
-        <p><strong>Rewards:</strong> <span id="rewardAmount">0 QPEPE</span></p>
+        <p><strong>Chain ID:</strong> <span id="connectedChain">-</span></p>
       </div>
-      <div class="staking-actions">
-        <input type="number" id="stakeInput" placeholder="Enter amount to stake" />
-        <button id="stakeButton">Stake</button>
-        <button id="unstakeButton">Unstake</button>
-        <button id="claimButton">Claim Rewards</button>
+
+      <!-- Eingabe für Staking -->
+      <input
+        type="number"
+        id="stakeAmount"
+        placeholder="Enter amount to stake"
+      />
+      <button id="stakeBtn">Stake</button>
+
+      <!-- Aktionen -->
+      <button id="unstakeBtn">Unstake</button>
+      <button id="claimBtn">Claim Rewards</button>
+
+      <!-- Status -->
+      <div id="stakingStatus">
+        <p><strong>Your Staked:</strong> <span id="userStaked">0</span></p>
+        <p><strong>Total Staked:</strong> <span id="totalStaked">0</span></p>
+        <p><strong>Rewards:</strong> <span id="userRewards">0</span></p>
       </div>
     </div>
-    <script type="module" src="/src/main.js"></script>
   </body>
 </html>
