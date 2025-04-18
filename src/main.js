@@ -1,11 +1,10 @@
-import { EthereumProvider } from "https://cdn.skypack.dev/@walletconnect/ethereum-provider";
-import './style.css';
+import { EthereumProvider } from "@walletconnect/ethereum-provider";
 
 let provider;
 
 async function connectWallet(chainId = "137") {
   provider = await EthereumProvider.init({
-    projectId: "67c4292e272ac36fd0bc049335adf6b67", // dein echtes Projekt-ID
+    projectId: "67c4292e272ac36fd0bc049335adf6b67", // dein WalletConnect v2 Project ID
     chains: [parseInt(chainId)],
     optionalChains: [1, 56, 137],
     showQrModal: true,
@@ -15,8 +14,8 @@ async function connectWallet(chainId = "137") {
 
   await provider.connect();
 
-  const accounts = await provider.request({ method: 'eth_accounts' });
-  const chain = await provider.request({ method: 'eth_chainId' });
+  const accounts = await provider.request({ method: "eth_accounts" });
+  const chain = await provider.request({ method: "eth_chainId" });
 
   document.getElementById("walletAddress").innerText = accounts[0];
   document.getElementById("walletChain").innerText = parseInt(chain, 16);
