@@ -2,47 +2,26 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/qpepe.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>QPEPE Staking</title>
-    <script type="module" src="/src/main.js"></script>
-    <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
-    <div class="app-container">
+    <div id="app">
       <h1>QuantumPepe Staking</h1>
-
-      <!-- Verbindung mit WalletConnect -->
-      <select id="chainSelect">
-        <option value="1">Ethereum</option>
-        <option value="137">Polygon</option>
-        <option value="56">Binance Smart Chain</option>
-      </select>
-
       <button id="connectButton">Connect Wallet</button>
 
-      <div class="wallet-info">
-        <p><strong>Wallet:</strong> <span id="walletAddress">Not connected</span></p>
-        <p><strong>Chain ID:</strong> <span id="connectedChain">-</span></p>
-      </div>
+      <select id="chainSelect">
+        <option value="1">Ethereum</option>
+        <option value="56">BNB Chain</option>
+        <option value="137" selected>Polygon</option>
+      </select>
 
-      <!-- Eingabe für Staking -->
-      <input
-        type="number"
-        id="stakeAmount"
-        placeholder="Enter amount to stake"
-      />
-      <button id="stakeBtn">Stake</button>
-
-      <!-- Aktionen -->
-      <button id="unstakeBtn">Unstake</button>
-      <button id="claimBtn">Claim Rewards</button>
-
-      <!-- Status -->
-      <div id="stakingStatus">
-        <p><strong>Your Staked:</strong> <span id="userStaked">0</span></p>
-        <p><strong>Total Staked:</strong> <span id="totalStaked">0</span></p>
-        <p><strong>Rewards:</strong> <span id="userRewards">0</span></p>
-      </div>
+      <p><strong>Wallet:</strong> <span id="walletAddress">Not connected</span></p>
+      <p><strong>Chain:</strong> <span id="walletChain">-</span></p>
     </div>
+
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>
+
