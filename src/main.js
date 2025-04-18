@@ -4,10 +4,10 @@ let provider;
 
 async function connectWallet(chainId = "137") {
   provider = await EthereumProvider.init({
-    projectId: "67c4292e272ac36fd0bc049335adf6b67", // dein WalletConnect v2 Project ID
+    projectId: "67c4292e272ac36fd0bc049335adf6b67",
     chains: [parseInt(chainId)],
-    optionalChains: [1, 56, 137],
     showQrModal: true,
+    optionalChains: [1, 56, 137],
     methods: ["eth_sendTransaction", "eth_sign"],
     events: ["chainChanged", "accountsChanged"],
   });
@@ -25,3 +25,4 @@ document.getElementById("connectButton").addEventListener("click", () => {
   const chainId = document.getElementById("chainSelect").value;
   connectWallet(chainId);
 });
+
