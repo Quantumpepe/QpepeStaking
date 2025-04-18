@@ -1,12 +1,11 @@
 import './style.css';
-
-import { EthereumProvider } from "https://cdn.skypack.dev/@walletconnect/ethereum-provider";
+import { EthereumProvider } from "@walletconnect/ethereum-provider";
 
 let provider;
 
 async function connectWallet(chainId = "1") {
   provider = await EthereumProvider.init({
-    projectId: "67c4292e272ac36fdbc049335adf6b67", // ← deine WalletConnect projectId
+    projectId: "67c4292e22rac36fdcb04933a5df66b7", // dein echter V2 projectId
     chains: [parseInt(chainId)],
     optionalChains: [1, 56, 137],
     showQrModal: true,
@@ -16,8 +15,8 @@ async function connectWallet(chainId = "1") {
 
   await provider.connect();
 
-  const accounts = await provider.request({ method: 'eth_accounts' });
-  const chain = await provider.request({ method: 'eth_chainId' });
+  const accounts = await provider.request({ method: "eth_accounts" });
+  const chain = await provider.request({ method: "eth_chainId" });
 
   alert(`Wallet verbunden:\nAdresse: ${accounts[0]}\nChain-ID: ${chain}`);
 }
@@ -26,18 +25,3 @@ document.getElementById("connectButton").addEventListener("click", () => {
   const chainId = document.getElementById("chainSelect").value;
   connectWallet(chainId);
 });
-
-
-window.addEventListener("load", () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const autoTrigger = urlParams.get("autoconnect");
-
-  if (autoTrigger === "true") {
-    const chainId = document.getElementById("chainSelect")?.value || "1";
-    connectWallet(chainId); // ruft die Verbindung direkt auf
-  }
-});
-
-
-
-
